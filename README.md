@@ -1,6 +1,8 @@
 # Port and Network scanning in Scappy
 
 ### Network Scanning
+  1. Find IP addresses of connected devices ✓
+  2. Find MAC addresses of connected devices ✓
 
 ### Port Scanning
   1. TCP SYN Scan ✓
