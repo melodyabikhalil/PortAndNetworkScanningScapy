@@ -23,3 +23,8 @@
   2. Open cmd in the directory of the project 
   3. Run:
         ```python name_of_file.py```
+        
+#### Requirements
+  1. Python 3
+  2. Scappy 
+  3. WinPcap 
