@@ -1,11 +1,12 @@
 from scapy.all import *
 
 dst_ip = "10.0.0.1"
-src_port = RandShort()
+src_port = 80
 dst_port=80
 
 def xmas_scan(target, port):
 
+    print("Xmas scan on %s with port %s" % (target, port))
     xmas_scan_resp = sr1(IP(dst=target)/TCP(dport=port,flags="FPU"),timeout=10,verbose=0)
     if (xmas_scan_resp is None):
         print ("%s | Open|Filtered" % port)
