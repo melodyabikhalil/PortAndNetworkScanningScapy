@@ -1,4 +1,4 @@
-# Port and Network scanning in Scappy
+# Port and Network scanning in Scapy
 
 ### Network Scanning
   1. Find IP addresses of connected devices ✓
