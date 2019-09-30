@@ -16,6 +16,6 @@ def null_scan(dst_ip, dst_port, src_port):
         if(int(null_scan_resp.getlayer(ICMP).type)==3 and int(null_scan_resp.getlayer(ICMP).code) in [1,2,3,9,10,13]):
             return ("%s | Filtered" % dst_port)
     else:
-        return ("%s | Unknown response" % port)
+        return ("%s | Unknown response" % dst_port)
 
 print(null_scan(dst_ip,dst_port,src_port))
