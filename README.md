@@ -28,5 +28,5 @@
         
 #### Requirements
   1. Python 3
-  2. Scappy 
+  2. Scapy 
   3. WinPcap 
