@@ -1,5 +1,6 @@
 from tkinter import *
- 
+import ipaddress
+import socket
 from tkinter import ttk
  
 window = Tk()
@@ -18,49 +19,57 @@ tab_control.add(net_tab, text='Network Scanning')
  
 
 #port scanning tab
+
 def scan():
+    global address
     #print(host_address.get())
     #print(scan_mode.get())
-    if(scan_mode.get() == 0):
-        print("TCP SYN Scan")
-        print("Host address = "+host_address.get())
-        print("Destination Port = "+dst_port.get())
-        print("Source Port = "+src_port.get())
-    elif(scan_mode.get() == 1):
-        print("TCP Connect Scan")
-        print("Host address = "+host_address.get())
-        print("Destination Port = "+dst_port.get())
-        print("Source Port = "+src_port.get())
-    elif(scan_mode.get() == 2):
-        print("TCP NULL Scan")
-        print("Host address = "+host_address.get())
-        print("Destination Port = "+dst_port.get())
-        print("Source Port = "+src_port.get())
-    elif(scan_mode.get() == 3):
-        print("FIN Scan")
-        print("Host address = "+host_address.get())
-        print("Destination Port = "+dst_port.get())
-        print("Source Port = "+src_port.get())
-    elif(scan_mode.get() == 4):
-        print("Xmas Scan")
-        print("Host address = "+host_address.get())
-        print("Destination Port = "+dst_port.get())
-        print("Source Port = "+src_port.get())
-    elif(scan_mode.get() == 5):
-        print("TCP ACK Scan")
-        print("Host address = "+host_address.get())
-        print("Destination Port = "+dst_port.get())
-        print("Source Port = "+src_port.get())
-    elif(scan_mode.get() == 6):
-        print("TCP Window Scan")
-        print("Host address = "+host_address.get())
-        print("Destination Port = "+dst_port.get())
-        print("Source Port = "+src_port.get())
-    elif(scan_mode.get() == 7):
-        print("UDP Scan")
-        print("Host address = "+host_address.get())
-        print("Destination Port = "+dst_port.get())
-        print("Source Port = "+src_port.get())
+    #print(host_address.get())
+    try:
+        address = ipaddress.ip_address(host_address.get())
+    
+        if(scan_mode.get() == 0):
+            print("TCP SYN Scan")
+            print("Host address = "+host_address.get())
+            print("Destination Port = "+dst_port.get())
+            print("Source Port = "+src_port.get())
+        elif(scan_mode.get() == 1):
+            print("TCP Connect Scan")
+            print("Host address = "+host_address.get())
+            print("Destination Port = "+dst_port.get())
+            print("Source Port = "+src_port.get())
+        elif(scan_mode.get() == 2):
+            print("TCP NULL Scan")
+            print("Host address = "+host_address.get())
+            print("Destination Port = "+dst_port.get())
+            print("Source Port = "+src_port.get())
+        elif(scan_mode.get() == 3):
+            print("FIN Scan")
+            print("Host address = "+host_address.get())
+            print("Destination Port = "+dst_port.get())
+            print("Source Port = "+src_port.get())
+        elif(scan_mode.get() == 4):
+            print("Xmas Scan")
+            print("Host address = "+host_address.get())
+            print("Destination Port = "+dst_port.get())
+            print("Source Port = "+src_port.get())
+        elif(scan_mode.get() == 5):
+            print("TCP ACK Scan")
+            print("Host address = "+host_address.get())
+            print("Destination Port = "+dst_port.get())
+            print("Source Port = "+src_port.get())
+        elif(scan_mode.get() == 6):
+            print("TCP Window Scan")
+            print("Host address = "+host_address.get())
+            print("Destination Port = "+dst_port.get())
+            print("Source Port = "+src_port.get())
+        elif(scan_mode.get() == 7):
+            print("UDP Scan")
+            print("Host address = "+host_address.get())
+            print("Destination Port = "+dst_port.get())
+            print("Source Port = "+src_port.get())
+    except:
+        print('invalid host address')
 host_label = Label(port_tab, text = 'Host').grid(column = 0, row = 0, sticky = W)
 host_address = Entry(port_tab)
 host_address.grid(column = 0, row = 1, sticky = W)
@@ -85,6 +94,11 @@ src_port = Entry(port_tab)
 src_port.grid(column = 1, row = 9,pady = 1)
 
 scan_button = Button(port_tab, text = 'Scan', command = scan).grid(column = 0, row = 10, sticky = W, pady = 2, columnspan = 3)
+
+#network scanning tab
+host_network_label = Label(net_tab, text = 'Host').grid(column = 0, row = 0, sticky = W)
+host_network_address = Entry(net_tab)
+host_network_address.grid(column = 0, row = 1, sticky = W)
 tab_control.pack(expand=1, fill='both')
 window.geometry("320x300")
 window.mainloop()
