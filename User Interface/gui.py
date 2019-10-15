@@ -6,6 +6,7 @@ from tkinter import ttk
 
 import sys
 sys.path.insert(1, '../Ports')
+sys.path.insert(1, '../Network')
 
 from syn import syn_scan
 from connect import connect_scan
@@ -15,19 +16,15 @@ from ack import ack_scan
 from udp import udp_scan
 from window import window_scan
 from xmas import xmas_scan
+
+from network import network_scan
  
 window = Tk()
- 
 window.title("Network & Port Scanning")
- 
 tab_control = ttk.Notebook(window)
- 
 port_tab = ttk.Frame(tab_control)
- 
 net_tab = ttk.Frame(tab_control)
- 
 tab_control.add(port_tab, text='Port Scanning')
- 
 tab_control.add(net_tab, text='Network Scanning')
  
 
@@ -71,6 +68,26 @@ def scan():
         template = "An exception of type {0} occurred. Arguments:\n{1!r}"
         message = template.format(type(ex).__name__, ex.args)
         print (message)
+
+
+#network scanning tab
+        
+def net_scan():
+    try:
+        address = ipaddress.ip_address(host_network_address.get())
+        #apres avoir recu le response
+        #response_dummy_data = [{'ip':'172.12.12.13','mac':'rfsfsg'},{'ip':'172.12.12.13','mac':'rfsfsg'},{'ip':'172.12.12.13','mac':'rfsfsg'}]
+        response_data = network_scan(address)
+        for elt in response_data:
+            response_entry.insert(END,"ip "+ elt['ip'] + " " + "mac " + elt['mac'] + "\n")
+            #Label(frame,text = "ip "+ elt['ip'] + " " + "mac " + elt['mac'])
+            print( "ip "+ elt['ip'] + " " + "mac " + elt['mac'])
+    except Exception as ex:
+        template = "An exception of type {0} occurred. Arguments:\n{1!r}"
+        message = template.format(type(ex).__name__, ex.args)
+        print (message)
+
+        
 def reset():
     host_address.delete(0, 'end')
     scan_mode.set(0)
@@ -78,6 +95,9 @@ def reset():
     src_port.delete(0, 'end')
     response_text.set("")
 
+
+#Ports Scanning GUI Setup
+    
 host_label = Label(port_tab, text = 'Host').grid(column = 0, row = 0, sticky = W)
 host_address = Entry(port_tab)
 host_address.grid(column = 0, row = 1, sticky = W)
@@ -105,18 +125,10 @@ scan_button = Button(port_tab, text = 'Scan', command = scan).grid(column = 0, r
 reset_button = Button(port_tab,text = 'Reset', command = reset).grid(column = 1, row = 10, sticky = W, pady = 2)
 response_text = Text(port_tab, width = 35)
 response_text.grid(column = 0, row = 11,sticky = W, columnspan = 2)
-#network scanning tab
-def net_scan():
-    try:
-        address = ipaddress.ip_address(host_network_address.get())
-        #apres avoir recu le response
-        response_dummy_data = [{'ip':'172.12.12.13','mac':'rfsfsg'},{'ip':'172.12.12.13','mac':'rfsfsg'},{'ip':'172.12.12.13','mac':'rfsfsg'}]
-        for elt in response_dummy_data:
-            response_entry.insert(END,"ip "+ elt['ip'] + " " + "mac " + elt['mac'] + "\n")
-            #Label(frame,text = "ip "+ elt['ip'] + " " + "mac " + elt['mac'])
-            print( "ip "+ elt['ip'] + " " + "mac " + elt['mac'])
-    except:
-        print('invalid host address')
+
+
+#Network Scanning GUI Setup
+        
 host_network_label = Label(net_tab, text = 'Host').grid(column = 0, row = 0, sticky = W)
 host_network_address = Entry(net_tab)
 host_network_address.grid(column = 0, row = 1, sticky = W)
