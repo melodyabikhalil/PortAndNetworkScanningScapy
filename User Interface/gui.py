@@ -2,7 +2,8 @@ from tkinter import *
 import ipaddress
 import socket
 from tkinter import ttk
- 
+from tkinter import messagebox
+
 window = Tk()
  
 window.title("Network & Port Scanning")
@@ -71,6 +72,7 @@ def scan():
             print("Source Port = "+src_port.get())
     except:
         print('invalid host address')
+        messagebox.showerror("Error", "invalid host address")
 def reset():
     host_address.delete(0, 'end')
     scan_mode.set(0)
@@ -117,6 +119,7 @@ def net_scan():
             print( "ip "+ elt['ip'] + " " + "mac " + elt['mac'])
     except:
         print('invalid host address')
+        messagebox.showerror("Error", "invalid host address")
 host_network_label = Label(net_tab, text = 'Host').grid(column = 0, row = 0, sticky = W)
 host_network_address = Entry(net_tab)
 host_network_address.grid(column = 0, row = 1, sticky = W)
