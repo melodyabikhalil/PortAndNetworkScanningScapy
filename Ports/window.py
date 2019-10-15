@@ -6,7 +6,7 @@ dst_port=80
 
 def window_scan(dst_ip,dst_port,src_port):
     print("Window scan on %s with port %s\n" % (dst_ip, dst_port))
-    window_scan_resp = sr1(IP(dst=dst_ip)/TCP(dport=dst_port,flags="A"),timeout=10, verbose=0)
+    window_scan_resp = sr1(IP(dst=dst_ip)/TCP(sport=int(src_port),dport=int(dst_port),flags="A"),timeout=10, verbose=0)
     if (window_scan_resp is None):
         return ("%s | No response" % dst_port)
     elif(window_scan_resp.haslayer(TCP)):
@@ -17,4 +17,3 @@ def window_scan(dst_ip,dst_port,src_port):
     else:
         return ("%s | Unknown response" % dst_port)
 
-print(window_scan(dst_ip,dst_port,src_port))

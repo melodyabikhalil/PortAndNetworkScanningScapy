@@ -7,7 +7,7 @@ dst_port=80
 
 def ack_scan(dst_ip, dst_port, src_port):
     print("ACK scan on %s with port %s\n" % (dst_ip, dst_port))
-    ack_flag_scan_resp = sr1(IP(dst=dst_ip)/TCP(dport=dst_port,flags="A"),timeout=10, verbose=0)
+    ack_flag_scan_resp = sr1(IP(dst=dst_ip)/TCP(sport=int(src_port),dport=int(dst_port),flags="A"),timeout=10, verbose=0)
     if (ack_flag_scan_resp is None):
         return( "%s | Stateful firewall present(Filtered)" % dst_port)
     elif(ack_flag_scan_resp.haslayer(TCP)):
@@ -18,5 +18,3 @@ def ack_scan(dst_ip, dst_port, src_port):
             return ("%s | Stateful firewall present(Filtered)" % dst_port)
     else:
         return ("%s | Unknown response" % dst_port)
-
-print(ack_scan(dst_ip,dst_port,src_port))

@@ -7,7 +7,7 @@ dst_port=80
 def fin_scan(dst_ip, dst_port, src_port):
     
     print("TCP FIN scan on %s with port %s\n" % (dst_ip, dst_port))
-    fin_scan_resp = sr1(IP(dst=dst_ip)/TCP(dport=dst_port,flags="F"),timeout=10, verbose=0)
+    fin_scan_resp = sr1(IP(dst=dst_ip)/TCP(sport=int(src_port),dport=int(dst_port),flags="F"),timeout=10, verbose=0)
     if (fin_scan_resp is None):
         return ("%s | Open|Filtered" % dst_port)
     elif(fin_scan_resp.haslayer(TCP)):
@@ -19,4 +19,4 @@ def fin_scan(dst_ip, dst_port, src_port):
     else:
         return ("%s | Unknown response" % dst_port)
 
-print(fin_scan(dst_ip,dst_port, src_port))
+

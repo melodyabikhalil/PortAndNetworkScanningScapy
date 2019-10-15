@@ -7,7 +7,7 @@ dst_port=80
 def xmas_scan(dst_ip, dst_port, src_port):
 
     print("Xmas scan on %s with port %s\n" % (dst_ip, dst_port))
-    xmas_scan_resp = sr1(IP(dst=dst_ip)/TCP(dport=dst_port,flags="FPU"),timeout=10,verbose=0)
+    xmas_scan_resp = sr1(IP(dst=dst_ip)/TCP(sport=int(src_port),dport=int(dst_port),flags="FPU"),timeout=10,verbose=0)
     if (xmas_scan_resp is None):
         return ("%s | Open|Filtered" % dst_port)
     elif(xmas_scan_resp.haslayer(TCP)):
@@ -19,4 +19,3 @@ def xmas_scan(dst_ip, dst_port, src_port):
     else:
         return ("%s | Unknown response" % dst_port)
 
-print( xmas_scan(dst_ip, dst_port,src_port))

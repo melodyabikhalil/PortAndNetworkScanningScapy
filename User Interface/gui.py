@@ -2,6 +2,19 @@ from tkinter import *
 import ipaddress
 import socket
 from tkinter import ttk
+
+
+import sys
+sys.path.insert(1, '../Ports')
+
+from syn import syn_scan
+from connect import connect_scan
+from fin import fin_scan
+from null import null_scan
+from ack import ack_scan
+from udp import udp_scan
+from window import window_scan
+from xmas import xmas_scan
  
 window = Tk()
  
@@ -27,50 +40,37 @@ def scan():
     #print(host_address.get())
     try:
         address = ipaddress.ip_address(host_address.get())
-    
+        host = host_address.get()
+        dport = dst_port.get()
+        sport = src_port.get()
         if(scan_mode.get() == 0):
-            print("TCP SYN Scan")
-            print("Host address = "+host_address.get())
-            print("Destination Port = "+dst_port.get())
-            print("Source Port = "+src_port.get())
-            response_text.insert(END,"TCP SYN Scan result")
+            print('SYN')
+            response_text.insert(END,syn_scan(host,dport,sport))
         elif(scan_mode.get() == 1):
-            print("TCP Connect Scan")
-            print("Host address = "+host_address.get())
-            print("Destination Port = "+dst_port.get())
-            print("Source Port = "+src_port.get())
+            print('Connect')
+            response_text.insert(END,connect_scan(host,dport,sport))
         elif(scan_mode.get() == 2):
             print("TCP NULL Scan")
-            print("Host address = "+host_address.get())
-            print("Destination Port = "+dst_port.get())
-            print("Source Port = "+src_port.get())
+            response_text.insert(END,null_scan(host,dport,sport))
         elif(scan_mode.get() == 3):
             print("FIN Scan")
-            print("Host address = "+host_address.get())
-            print("Destination Port = "+dst_port.get())
-            print("Source Port = "+src_port.get())
+            response_text.insert(END,fin_scan(host,dport,sport))
         elif(scan_mode.get() == 4):
             print("Xmas Scan")
-            print("Host address = "+host_address.get())
-            print("Destination Port = "+dst_port.get())
-            print("Source Port = "+src_port.get())
+            response_text.insert(END,xmas_scan(host,dport,sport))
         elif(scan_mode.get() == 5):
             print("TCP ACK Scan")
-            print("Host address = "+host_address.get())
-            print("Destination Port = "+dst_port.get())
-            print("Source Port = "+src_port.get())
+            response_text.insert(END,ack_scan(host,dport,sport))
         elif(scan_mode.get() == 6):
             print("TCP Window Scan")
-            print("Host address = "+host_address.get())
-            print("Destination Port = "+dst_port.get())
-            print("Source Port = "+src_port.get())
+            response_text.insert(END,window_scan(host,dport,sport))
         elif(scan_mode.get() == 7):
             print("UDP Scan")
-            print("Host address = "+host_address.get())
-            print("Destination Port = "+dst_port.get())
-            print("Source Port = "+src_port.get())
-    except:
-        print('invalid host address')
+            response_text.insert(END,udp_scan(host,dport,sport))
+    except Exception as ex:
+        template = "An exception of type {0} occurred. Arguments:\n{1!r}"
+        message = template.format(type(ex).__name__, ex.args)
+        print (message)
 def reset():
     host_address.delete(0, 'end')
     scan_mode.set(0)
