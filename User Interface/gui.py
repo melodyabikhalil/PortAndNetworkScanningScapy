@@ -81,7 +81,7 @@ def net_scan():
         #response_dummy_data = [{'ip':'172.12.12.13','mac':'rfsfsg'},{'ip':'172.12.12.13','mac':'rfsfsg'},{'ip':'172.12.12.13','mac':'rfsfsg'}]
         response_data = network_scan(address)
         for elt in response_data:
-            response_entry.insert(END,"ip "+ elt['ip'] + " " + "mac " + elt['mac'] + "\n")
+            response_entry.insert(END,"IP "+ elt['ip'] + " " + "MAC " + elt['mac'] + "\n")
             #Label(frame,text = "ip "+ elt['ip'] + " " + "mac " + elt['mac'])
             print( "ip "+ elt['ip'] + " " + "mac " + elt['mac'])
     except Exception as ex:
