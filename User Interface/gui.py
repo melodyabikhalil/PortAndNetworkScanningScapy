@@ -78,7 +78,7 @@ def reset():
     scan_mode.set(0)
     dst_port.delete(0, 'end')
     src_port.delete(0, 'end')
-    response_text.set("")
+    response_text.delete("1.0", "end")
 
 host_label = Label(port_tab, text = 'Host').grid(column = 0, row = 0, sticky = W)
 host_address = Entry(port_tab)
