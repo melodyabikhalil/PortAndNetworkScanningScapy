@@ -40,6 +40,7 @@ def scan():
         host = host_address.get()
         dport = dst_port.get()
         sport = src_port.get()
+        response_text.set("Please wait..")
         if(scan_mode.get() == 0):
             print('SYN')
             response_text.insert(END,syn_scan(host,dport,sport))
@@ -75,6 +76,7 @@ def scan():
 def net_scan():
     try:
         address = ipaddress.ip_network(host_network_address.get())
+        response_entry.set("Please wait..")
         #apres avoir recu le response
         #response_dummy_data = [{'ip':'172.12.12.13','mac':'rfsfsg'},{'ip':'172.12.12.13','mac':'rfsfsg'},{'ip':'172.12.12.13','mac':'rfsfsg'}]
         response_data = network_scan(address)
