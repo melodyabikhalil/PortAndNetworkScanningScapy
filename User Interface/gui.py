@@ -74,7 +74,7 @@ def scan():
         
 def net_scan():
     try:
-        address = ipaddress.ip_address(host_network_address.get())
+        address = ipaddress.ip_network(host_network_address.get())
         #apres avoir recu le response
         #response_dummy_data = [{'ip':'172.12.12.13','mac':'rfsfsg'},{'ip':'172.12.12.13','mac':'rfsfsg'},{'ip':'172.12.12.13','mac':'rfsfsg'}]
         response_data = network_scan(address)
