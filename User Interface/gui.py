@@ -40,39 +40,29 @@ def scan():
         host = host_address.get()
         dport = dst_port.get()
         sport = src_port.get()
-        
-        #response_text.insert(END,"Please wait..")
         if(scan_mode.get() == 0):
             print('SYN')
-            #response_text.delete("1.0","end")
             response_text.insert(END,syn_scan(host,dport,sport))
         elif(scan_mode.get() == 1):
             print('Connect')
-            #response_text.delete("1.0","end")
             response_text.insert(END,connect_scan(host,dport,sport))
         elif(scan_mode.get() == 2):
             print("TCP NULL Scan")
-            #response_text.delete("1.0","end")
             response_text.insert(END,null_scan(host,dport,sport))
         elif(scan_mode.get() == 3):
             print("FIN Scan")
-            #response_text.delete("1.0","end")
             response_text.insert(END,fin_scan(host,dport,sport))
         elif(scan_mode.get() == 4):
             print("Xmas Scan")
-            #response_text.delete("1.0","end")
             response_text.insert(END,xmas_scan(host,dport,sport))
         elif(scan_mode.get() == 5):
             print("TCP ACK Scan")
-            #response_text.delete("1.0","end")
             response_text.insert(END,ack_scan(host,dport,sport))
         elif(scan_mode.get() == 6):
             print("TCP Window Scan")
-            #response_text.delete("1.0","end")
             response_text.insert(END,window_scan(host,dport,sport))
         elif(scan_mode.get() == 7):
             print("UDP Scan")
-            #response_text.delete("1.0","end")
             response_text.insert(END,udp_scan(host,dport,sport))
     except Exception as ex:
         template = "An exception of type {0} occurred. Arguments:\n{1!r}"
@@ -85,17 +75,12 @@ def scan():
 def net_scan():
     try:
         address = host_network_address.get()
-        #address = ipaddress.ip_network(host_network_address.get())
-        #response_entry.insert(END,"Please wait..")
         #apres avoir recu le response
         #response_dummy_data = [{'ip':'172.12.12.13','mac':'rfsfsg'},{'ip':'172.12.12.13','mac':'rfsfsg'},{'ip':'172.12.12.13','mac':'rfsfsg'}]
         response_data = network_scan(address)
-        #response_entry.delete("1.0","end")
         for elt in response_data:
-            
             response_entry.insert(END,"IP "+ elt['ip'] + " " + "MAC " + elt['mac'] + "\n")
             #Label(frame,text = "ip "+ elt['ip'] + " " + "mac " + elt['mac'])
-            
             print( "ip "+ elt['ip'] + " " + "mac " + elt['mac'])
     except Exception as ex:
         template = "An exception of type {0} occurred. Arguments:\n{1!r}"
@@ -108,7 +93,7 @@ def reset():
     scan_mode.set(0)
     dst_port.delete(0, 'end')
     src_port.delete(0, 'end')
-    response_text.delete("1.0","end")
+    response_text.delete("1.0", "end")
 
 
 #Ports Scanning GUI Setup
@@ -159,5 +144,5 @@ response_entry['yscrollcommand'] = scrollb.set
 
 
 tab_control.pack(expand=1, fill='both')
-window.geometry("300x450")
+window.geometry("500x550")
 window.mainloop()
