@@ -11,7 +11,7 @@ def syn_scan(dst_ip,dst_port, scr_port):
         return ("%s | Closed" % dst_port)
     elif(tcp_connect_scan_resp.haslayer(TCP)):
         if(tcp_connect_scan_resp.getlayer(TCP).flags == 0x12):
-            send_rst = sr(IP(dst=dst_ip)/TCP(sport=src_port,dport=dst_port,flags="R"),timeout=10, verbose=0)
+            send_rst = sr(IP(dst=dst_ip)/TCP(sport=int(src_port),dport=int(dst_port),flags="R"),timeout=10, verbose=0)
             return ("%s | Open" % dst_port)
         elif(tcp_connect_scan_resp.getlayer(TCP).flags == 0x14):
             return ("%s | Closed" % dst_port)

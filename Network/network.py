@@ -12,11 +12,4 @@ def network_scan(target_ip):
     
     for sent, received in result:
         clients.append({'ip': received.psrc, 'mac': received.hwsrc})
-    print(clients)
-    print("Available devices in the network:")
-    print("IP" + " "*18+"MAC")
-    for client in clients:
-        print("{:16}    {}".format(client['ip'], client['mac']))
     return clients
-
-network_scan(target_ip)
