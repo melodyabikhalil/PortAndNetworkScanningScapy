@@ -2,10 +2,10 @@
 
 ### Network Scanning
   1. ARP Scan
-      a. Find IP addresses of hosts alive
-      b. Find MAC addresses of hosts alive 
+    a. Find IP addresses of hosts alive
+    b. Find MAC addresses of hosts alive 
   2. ICMP Scan
-      a. Find IP addresses of hosts alive
+    a. Find IP addresses of hosts alive
 
 ### Port Scanning
   1. TCP SYN Scan 
