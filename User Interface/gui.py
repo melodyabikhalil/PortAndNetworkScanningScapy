@@ -40,6 +40,7 @@ def scan():
         host = host_address.get()
         dport = dst_port.get()
         sport = src_port.get()
+        response_text.delete("1.0", "end")
         if(scan_mode.get() == 0):
             print('SYN')
             response_text.insert(END,syn_scan(host,dport,sport))
@@ -78,8 +79,9 @@ def net_scan():
         #apres avoir recu le response
         #response_dummy_data = [{'ip':'172.12.12.13','mac':'rfsfsg'},{'ip':'172.12.12.13','mac':'rfsfsg'},{'ip':'172.12.12.13','mac':'rfsfsg'}]
         response_data = network_scan(address)
+        response_entry.insert(END,"IP\t\tMAC\n")
         for elt in response_data:
-            response_entry.insert(END,"IP "+ elt['ip'] + " " + "MAC " + elt['mac'] + "\n")
+            response_entry.insert(END,elt['ip'] + "\t\t" + elt['mac'] + "\n")
             #Label(frame,text = "ip "+ elt['ip'] + " " + "mac " + elt['mac'])
             print( "ip "+ elt['ip'] + " " + "mac " + elt['mac'])
     except Exception as ex:
