@@ -1,8 +1,11 @@
 # Port and Network scanning in Scapy
 
 ### Network Scanning
-  1. Find IP addresses of connected devices 
-  2. Find MAC addresses of connected devices 
+  1. ARP Scan
+      Find IP addresses of hosts alive
+      Find MAC addresses of hosts alive 
+  2. ICMP Scan
+      Find IP addresses of hosts alive
 
 ### Port Scanning
   1. TCP SYN Scan 
@@ -13,7 +16,7 @@
   6. TCP ACK Scan 
   7. TCP Window Scan 
   8. UDP Scan 
-
+  9. Scan with customized flags
 
 #### Usage
   1. Clone the repo
