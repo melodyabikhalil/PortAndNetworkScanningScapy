@@ -32,6 +32,8 @@ tab_control.add(net_tab, text='Network Scanning')
 
 def scan():
     global address
+    global scan_flags #give scan_flags as paremeter for the custom_scan function
+    scan_flags = ""
     #print(host_address.get())
     #print(scan_mode.get())
     #print(host_address.get())
@@ -65,6 +67,33 @@ def scan():
         elif(scan_mode.get() == 7):
             print("UDP Scan")
             response_text.insert(END,udp_scan(host,dport,sport))
+        elif(scan_mode.get() == 8):
+            print("Custom Scan")
+            if(ack_flag.get() == 1):
+                print("ACK flag")
+                scan_flags = scan_flags + "A"
+            if(fin_flag.get() == 1):
+                print("FIN flag")
+                scan_flags = scan_flags + "F"
+            if(urg_flag.get() == 1):
+                print("IRG flag")
+                scan_flags = scan_flags + "I"
+            if(psh_flag.get() == 1):
+                print("PSH flag")
+                scan_flags = scan_flags + "P"
+            if(rst_flag.get() == 1):
+                print("RST flag")
+                scan_flags = scan_flags + "R"
+            if(ece_flag.get() == 1):
+                print("ECE flag")
+                scan_flags = scan_flags + "E"
+            if(cwr_flag.get() == 1):
+                print("CWR flag")
+                scan_flags = scan_flags + "C"
+            if(ns_flag.get() == 1):
+                print("NS flag")
+                scan_flags = scan_flags + "N"
+            print(scan_flags)
     except Exception as ex:
         template = "An exception of type {0} occurred. Arguments:\n{1!r}"
         message = template.format(type(ex).__name__, ex.args)
@@ -77,6 +106,10 @@ def net_scan():
     try:
         address = host_network_address.get()
         #apres avoir recu le response
+        if(net_scan_mode.get() == 0):
+            print("ARP scan")
+        elif(net_scan_mode.get() == 1):
+            print("ICMP scan")
         #response_dummy_data = [{'ip':'172.12.12.13','mac':'rfsfsg'},{'ip':'172.12.12.13','mac':'rfsfsg'},{'ip':'172.12.12.13','mac':'rfsfsg'}]
         response_data = network_scan(address)
         response_entry.insert(END,"IP\t\tMAC\n")
@@ -97,7 +130,15 @@ def reset():
     src_port.delete(0, 'end')
     response_text.delete("1.0", "end")
 
-
+def toggle():
+    if scan_mode.get() == 8:
+        custom_frame.grid()
+    else:
+        custom_frame.grid_remove()
+def toggle_other():
+    custom_frame.grid_remove()
+    ack_flag.set(0)
+    fin_flag.set(0)
 #Ports Scanning GUI Setup
     
 host_label = Label(port_tab, text = 'Host').grid(column = 0, row = 0, sticky = W)
@@ -106,15 +147,34 @@ host_address.grid(column = 0, row = 1, sticky = W)
 mode_label = Label(port_tab, text = 'Mode').grid(column = 0, row = 2, sticky = W, pady = 2)
 scan_mode = IntVar()
 scan_mode.set(0)
-tcp_syn_scan_rb = Radiobutton(port_tab, text = "TCP SYN Scan", variable = scan_mode, value = 0).grid(row = 3, column = 0, sticky = W)
-tcp_connect_scan_rb = Radiobutton(port_tab, text = "TCP Connect Scan", variable = scan_mode, value = 1).grid(row = 3, column = 1, sticky = W)
-tcp_null_scan_rb = Radiobutton(port_tab, text = "TCP NULL Scan", variable = scan_mode, value = 2).grid(row = 4, column = 0, sticky = W)
-fin_scan_rb = Radiobutton(port_tab, text = "TCP FIN Scan", variable = scan_mode, value = 3).grid(row = 4, column = 1, sticky = W)
-xmas_scan_rb = Radiobutton(port_tab, text = "TCP Xmas Scan", variable = scan_mode, value = 4).grid(row = 5, column = 0, sticky = W)
-tcp_ack_scan_rb = Radiobutton(port_tab, text = "TCP ACK Scan", variable = scan_mode, value = 5).grid(row = 5, column = 1, sticky = W)
-tcp_window_scan_rb = Radiobutton(port_tab, text = "TCP Window Scan", variable = scan_mode, value = 6).grid(row = 6, column = 0, sticky = W)
-udp_scan_rb = Radiobutton(port_tab, text = "UDP Scan", variable = scan_mode, value = 7).grid(row = 6, column = 1, sticky = W)
-
+tcp_syn_scan_rb = Radiobutton(port_tab, text = "TCP SYN Scan", variable = scan_mode, value = 0,command = toggle_other).grid(row = 3, column = 0, sticky = W)
+tcp_connect_scan_rb = Radiobutton(port_tab, text = "TCP Connect Scan", variable = scan_mode, value = 1,command = toggle_other).grid(row = 3, column = 1, sticky = W)
+tcp_null_scan_rb = Radiobutton(port_tab, text = "TCP NULL Scan", variable = scan_mode, value = 2,command = toggle_other).grid(row = 4, column = 0, sticky = W)
+fin_scan_rb = Radiobutton(port_tab, text = "TCP FIN Scan", variable = scan_mode, value = 3,command = toggle_other).grid(row = 4, column = 1, sticky = W)
+xmas_scan_rb = Radiobutton(port_tab, text = "TCP Xmas Scan", variable = scan_mode, value = 4,command = toggle_other).grid(row = 5, column = 0, sticky = W)
+tcp_ack_scan_rb = Radiobutton(port_tab, text = "TCP ACK Scan", variable = scan_mode, value = 5,command = toggle_other).grid(row = 5, column = 1, sticky = W)
+tcp_window_scan_rb = Radiobutton(port_tab, text = "TCP Window Scan", variable = scan_mode, value = 6,command = toggle_other).grid(row = 6, column = 0, sticky = W)
+udp_scan_rb = Radiobutton(port_tab, text = "UDP Scan", variable = scan_mode, value = 7,command = toggle_other).grid(row = 6, column = 1, sticky = W)
+custom_scan_rb = Radiobutton(port_tab, text = "Custom Scan", variable = scan_mode, value = 8, command = toggle).grid(row = 3, column = 3, sticky = W)
+custom_frame = Frame(port_tab)
+custom_frame.grid(row = 4, column = 3, sticky = W)
+ack_flag = IntVar()
+fin_flag = IntVar()
+urg_flag = IntVar()
+psh_flag = IntVar()
+rst_flag = IntVar()
+ece_flag = IntVar()
+cwr_flag = IntVar()
+ns_flag = IntVar()
+Checkbutton(custom_frame, text = "ACK", variable = ack_flag).grid(row = 0, column = 0)
+Checkbutton(custom_frame, text = "FIN", variable = fin_flag).grid(row = 1, column = 0)
+Checkbutton(custom_frame, text = "URG ", variable = urg_flag).grid(row = 0, column = 2)
+Checkbutton(custom_frame, text = "PSH", variable = psh_flag).grid(row = 1, column = 2)
+Checkbutton(custom_frame, text = "RST", variable = rst_flag).grid(row = 0, column = 3)
+Checkbutton(custom_frame, text = "ECE", variable = ece_flag).grid(row = 1, column = 3)
+Checkbutton(custom_frame, text = "CWR", variable = cwr_flag).grid(row = 0, column = 1)
+Checkbutton(custom_frame, text = "NS", variable = ns_flag).grid(row = 1, column = 1)
+custom_frame.grid_remove()
 scan_options_label = Label(port_tab, text = 'Scan Options').grid(column = 0, row = 7, sticky = W, pady = 2)
 dst_port_label = Label(port_tab, text = 'Destination Port').grid(column = 0, row = 8, sticky = W,pady = 1)
 dst_port = Entry(port_tab)
@@ -134,10 +194,14 @@ response_text.grid(column = 0, row = 11,sticky = W, columnspan = 2)
 host_network_label = Label(net_tab, text = 'Host').grid(column = 0, row = 0, sticky = W)
 host_network_address = Entry(net_tab)
 host_network_address.grid(column = 0, row = 1, sticky = W)
+net_scan_mode = IntVar()
+net_scan_mode.set(0)
+arp_scan_rb = Radiobutton(net_tab, text = "ARP Scan", variable = net_scan_mode, value = 0).grid(row = 3, column = 0, sticky = W)
+arp_scan_rb = Radiobutton(net_tab, text = "ICMP Scan", variable = net_scan_mode, value = 1).grid(row = 2, column = 0, sticky = W)
 scan_button_net = Button(net_tab, text = 'Scan', command = net_scan).grid(column = 0, row = 1)
 
 response_entry = Text(net_tab, width = 50)
-response_entry.grid(column = 0, row = 2,sticky = W)
+response_entry.grid(column = 0, row = 4,sticky = W)
 scrollb = Scrollbar(net_tab, command = response_entry.yview)
 response_entry['yscrollcommand'] = scrollb.set
 
@@ -146,5 +210,5 @@ response_entry['yscrollcommand'] = scrollb.set
 
 
 tab_control.pack(expand=1, fill='both')
-window.geometry("500x550")
+window.geometry("550x550")
 window.mainloop()
