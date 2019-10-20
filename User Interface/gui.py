@@ -16,8 +16,11 @@ from ack import ack_scan
 from udp import udp_scan
 from window import window_scan
 from xmas import xmas_scan
+from custom_flags import custom_flags_scan
+
 
 from network import network_scan
+from icmp_network import remote_network_scan
  
 window = Tk()
 window.title("Network & Port Scanning")
@@ -70,29 +73,22 @@ def scan():
         elif(scan_mode.get() == 8):
             print("Custom Scan")
             if(ack_flag.get() == 1):
-                print("ACK flag")
                 scan_flags = scan_flags + "A"
             if(fin_flag.get() == 1):
-                print("FIN flag")
                 scan_flags = scan_flags + "F"
             if(urg_flag.get() == 1):
-                print("IRG flag")
                 scan_flags = scan_flags + "I"
             if(psh_flag.get() == 1):
-                print("PSH flag")
                 scan_flags = scan_flags + "P"
             if(rst_flag.get() == 1):
-                print("RST flag")
                 scan_flags = scan_flags + "R"
             if(ece_flag.get() == 1):
-                print("ECE flag")
                 scan_flags = scan_flags + "E"
             if(cwr_flag.get() == 1):
-                print("CWR flag")
                 scan_flags = scan_flags + "C"
             if(ns_flag.get() == 1):
-                print("NS flag")
                 scan_flags = scan_flags + "N"
+            response_text.insert(END,custom_flags_scan(host,dport,sport,scan_flags))
             print(scan_flags)
     except Exception as ex:
         template = "An exception of type {0} occurred. Arguments:\n{1!r}"
@@ -108,10 +104,10 @@ def net_scan():
         #apres avoir recu le response
         if(net_scan_mode.get() == 0):
             print("ARP scan")
+            response_data = network_scan(address)
         elif(net_scan_mode.get() == 1):
             print("ICMP scan")
-        #response_dummy_data = [{'ip':'172.12.12.13','mac':'rfsfsg'},{'ip':'172.12.12.13','mac':'rfsfsg'},{'ip':'172.12.12.13','mac':'rfsfsg'}]
-        response_data = network_scan(address)
+            response_data = remote_network_scan(address)
         response_entry.insert(END,"IP\t\tMAC\n")
         for elt in response_data:
             response_entry.insert(END,elt['ip'] + "\t\t" + elt['mac'] + "\n")
