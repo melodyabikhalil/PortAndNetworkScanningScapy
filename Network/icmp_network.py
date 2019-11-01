@@ -42,5 +42,3 @@ def remote_network_scan(network):
         return 'No hosts are online'
     else :
         return alive_hosts
-
-remote_network_scan(network)
