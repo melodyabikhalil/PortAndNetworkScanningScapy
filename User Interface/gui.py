@@ -138,12 +138,14 @@ def toggle_other():
     custom_frame.grid_remove()
     ack_flag.set(0)
     fin_flag.set(0)
+
+    
 #Ports Scanning GUI Setup
     
-host_label = Label(port_tab, text = 'Host').grid(column = 0, row = 0, sticky = W, padx = 2)
+host_label = Label(port_tab, text = 'Host', font='Helvetica 10 bold').grid(column = 0, row = 0, sticky = W, padx = 2)
 host_address = Entry(port_tab)
 host_address.grid(column = 0, row = 1, padx = 2)
-mode_label = Label(port_tab, text = 'Mode').grid(column = 0, row = 2, sticky = W, pady = 2,padx = 2)
+mode_label = Label(port_tab, text = 'Mode', font='Helvetica 10 bold').grid(column = 0, row = 2, sticky = W, pady = 2,padx = 2)
 scan_mode = IntVar()
 scan_mode.set(0)
 tcp_syn_scan_rb = Radiobutton(port_tab, text = "TCP SYN Scan", variable = scan_mode, value = 0,command = toggle_other).grid(row = 3, column = 0, sticky = W,padx = 2)
@@ -174,7 +176,7 @@ Checkbutton(custom_frame, text = "ECE", variable = ece_flag).grid(row = 1, colum
 Checkbutton(custom_frame, text = "CWR", variable = cwr_flag).grid(row = 0, column = 1)
 Checkbutton(custom_frame, text = "NS", variable = ns_flag).grid(row = 1, column = 1)
 custom_frame.grid_remove()
-scan_options_label = Label(port_tab, text = 'Scan Options').grid(column = 0, row = 7, sticky = W, pady = 2, padx = 2)
+scan_options_label = Label(port_tab, text = 'Scan Options', font='Helvetica 10 bold').grid(column = 0, row = 7, sticky = W, pady = 2, padx = 2)
 dst_port_label = Label(port_tab, text = 'Destination Port').grid(column = 0, row = 8, sticky = W,pady = 1, padx = 2)
 dst_port = Entry(port_tab)
 dst_port.grid(column = 1, row = 8,pady = 1) 
@@ -190,7 +192,7 @@ response_text.grid(column = 0, row = 11, columnspan = 2, padx = 6)
 
 #Network Scanning GUI Setup
         
-host_network_label = Label(net_tab, text = 'Host').grid(column = 0, row = 0, sticky = W, padx = 2)
+host_network_label = Label(net_tab, text = 'Host', font='Helvetica 10 bold').grid(column = 0, row = 0, sticky = W, padx = 2)
 host_network_address = Entry(net_tab)
 host_network_address.grid(column = 0, row = 1,sticky = W,  padx = 6)
 net_scan_mode = IntVar()
