@@ -77,7 +77,7 @@ def scan():
             if(fin_flag.get() == 1):
                 scan_flags = scan_flags + "F"
             if(urg_flag.get() == 1):
-                scan_flags = scan_flags + "I"
+                scan_flags = scan_flags + "U"
             if(psh_flag.get() == 1):
                 scan_flags = scan_flags + "P"
             if(rst_flag.get() == 1):
