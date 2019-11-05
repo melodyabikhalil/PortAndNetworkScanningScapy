@@ -125,15 +125,18 @@ def reset():
     dst_port.delete(0, 'end')
     src_port.delete(0, 'end')
     response_text.delete("1.0", "end")
+    
 def reset_net():
     host_network_address.delete(0,'end')
     net_scan_mode.set(0)
     response_entry.delete("1.0", "end")
+    
 def toggle():
     if scan_mode.get() == 8:
         custom_frame.grid()
     else:
         custom_frame.grid_remove()
+        
 def toggle_other():
     custom_frame.grid_remove()
     ack_flag.set(0)
@@ -142,7 +145,7 @@ def toggle_other():
     
 #Ports Scanning GUI Setup
     
-host_label = Label(port_tab, text = 'Host', font='Helvetica 10 bold').grid(column = 0, row = 0, sticky = W, padx = 15)
+host_label = Label(port_tab, text = 'Host', font='Helvetica 10 bold').grid(column = 0, row = 0, sticky = W, padx = 15, pady=10)
 host_address = Entry(port_tab)
 host_address.grid(column = 0, row = 1, padx = 20)
 mode_label = Label(port_tab, text = 'Mode', font='Helvetica 10 bold').grid(column = 0, row = 2, sticky = W, pady = 2,padx = 15)
@@ -192,9 +195,9 @@ response_text.grid(column = 0, columnspan = 2, sticky = W, padx = 20)
 
 #Network Scanning GUI Setup
         
-host_network_label = Label(net_tab, text = 'Host', font='Helvetica 10 bold').grid(column = 0, row = 0, sticky = W, padx = 15)
+host_network_label = Label(net_tab, text = 'Host', font='Helvetica 10 bold').grid(column = 0, row = 0, sticky = W, padx = 15, pady=10)
 host_network_address = Entry(net_tab)
-host_network_address.grid(column = 0, row = 1,sticky = W,  padx = 20)
+host_network_address.grid(column = 0, row = 1, sticky = W, padx = 20)
 net_scan_mode = IntVar()
 net_scan_mode.set(0)
 arp_scan_rb = Radiobutton(net_tab, text = "ARP Scan", variable = net_scan_mode, value = 0).grid(row = 2, column = 0, sticky = W, padx = 20)
