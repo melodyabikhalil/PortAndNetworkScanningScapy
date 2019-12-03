@@ -107,7 +107,7 @@ def net_scan():
             response_data = network_scan(address)
         elif(net_scan_mode.get() == 1):
             print("ICMP scan")
-            response_data = remote_network_scan(address)
+            response_data = network_scan(address)
         response_entry.insert(END,"IP\t\tMAC\n")
         for elt in response_data:
             response_entry.insert(END,elt['ip'] + "\t\t" + elt['mac'] + "\n")
